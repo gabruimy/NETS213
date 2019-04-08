@@ -1,0 +1,13 @@
+﻿UserId,Truck Name,Address,FoodItem1,FoodItem2,FoodItem3,FoodItem4,Price1,Price2,Price3,Price4
+1,chewey's,market and 34th,Cali BLT,Apple BLT,Smoked Salmon,Classic BLT,4,5,8,4
+2,Chewey's,market and 34th,Apple BLT,Cali BLT,Classic BLT,Smoked Salmon,3,4,4,8
+3,chewey's,market and 34th,Smoked Salmon,Classic BLT,Apple BLT,Cali BLT,7,3,5,4
+1,Authentik Byrek,market and 35th,Steak Byrek,Vegitarian Byrek,Beef Byrek,Spinach and cheese Byrek,5,4,7,5
+2,Authentik Byrek,market and 35th,steak byrek,Vegitarian Byrek,Beef Byrek,Spinach and cheese Byrek,6,4,5,5
+3,authentik byrek,market and 35th,steak Byrek,Vegitarian Byrek,Beef Byrek,Spinach and cheese Byrek,6,5,7,5
+1,hemo's,spruce and 36th,cheesesteak,chicken cheesesteak,sausage egg and cheese,mushroom cheesesteak,4.5,4.5,4,5
+2,hemo's,spruce and 36th,cheesesteak,chicken cheesesteak,sausage egg and cheese,mushroom cheesesteak,4.5,4.5,4,5
+3,hemo's,spruce and 36th,cheesesteak,chicken cheesesteak,sausage egg and cheese,mushroom cheesesteak,4.5,4.5,3,5.5
+1,Nora's,walnut and 38th,chicken over rice,Steak over rice,fish over rice,churizo over rice,5,4,4,5
+2,Nora's,walnut and 38th,chicken over rice,Steak over rice,fish over rice,churizo over rice,5,5,4,6
+3,Nora's,walnut and 38th,chicken over rice,Steak over rice,fish over rice,churizo over rice,5,5,5,5
