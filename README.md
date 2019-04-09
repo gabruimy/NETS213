@@ -58,3 +58,28 @@ Devise incentive rewarding mechanism.
 
 Milestone 2:
 Implement it accordingly.
+
+
+
+### Quality Control and Aggregation (deliverable 2)
+
+Locations of Requested Files:
+Raw data for possible mturk tasks: /data/menu_images/*
+Aggregation Input:/data/nets213sampleprojectdata.csv
+Aggregation Output:/data/menu.csv
+Quality Control Input:/data/nets213sampleprojectdata.csv
+Quality Control Output:/data/quality.csv
+Code for Quality Conotrol and Aggregation:/src/QC:Aggregation.py
+
+Aggregation Description
+The aggregation module takes in a csv with a users id, the restaurants name, address, fooditems, and prices. The module creates a three level dictionary structure. The key of the first is the food truck name, the key to the second is the name of the food itself, and the key to the last is the price of the meal. For the last dictionary, the value is how many times that price has been input for that meal at that food truck. The dictionary is created by iterating through all food and price cells for every row in the table adding dictionaries to the structure when they do not exist. This overall dictionary structure is then iterated through and using majority vote the data is output as a list of tuples of the form (Truck, Food, Price). This module also outputs a dictionary that becomes an input for quality control. This dictionary is of the form {truck Food: price}.
+
+Quality Control Description
+This module takes in the dictionary from aggregation and the same csv as aggregation. It matches to see if individuals were correct or incorrect for every data point they input related to food and price. The number correct is then divided by the number provided by the individual to give a quality score out of 1. The quality is output along with the user_id as a list of tuples of the form (user_id, quality).
+
+
+Going Forward:
+
+Some things with this design will definitely change as the project moves forward. We plan to move to weighed majority vote and not include data in our output set when there are no other users to corroborate it. We are also going to find a way to impliment addresses into the system which will most likely be somewhat challanging. This is because trucks can move rendering correct data seemingly incorrect. If this is factored into weighted quality control it could skew the scores and artificially lower the quality of some. Further, we will need to find a way of balancing new data collection with existing data and getting rid of outdated data. If a food truck takes an offering off their menu this will be difficult to identify and rectify. 
+
+
