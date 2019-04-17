@@ -1,0 +1,63 @@
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+
+<crowd-form answer-format="flatten-objects" id="overall">
+    <crowd-instructions link-text="View instructions" link-type="button">
+    <short-summary>
+      <p>Given the image above record all of the menu items (one per menu item input) and the price for each menu item in USD</p>
+    </short-summary>
+  </crowd-instructions>
+<div class="row" id="work_content"><script type="text/javascript">
+var image = '${img}';
+var truck_name = '${truck_name}'
+
+var form = document.getElementById("overall");
+
+var img_div = document.createElement('div');
+img_div.style  = "width:500px;height:500px;margin:0 auto";
+
+var img = document.createElement('img');
+img.src = image;
+img.style = "height:400px;width:400px;transform:rotate(90deg);";
+
+img_div.appendChild(img);
+form.appendChild(img_div);
+
+var input_div = document.createElement('div');
+form.appendChild(input_div);
+
+var food_p = document.createElement('p');
+var price_p = document.createElement('p');
+food_p.innerHTML = "Menu Item Name";
+price_p.innerHTML = "Menu Item Price";
+
+for(x = 1; x < 31; x++){
+	var div_in = document.createElement('div');
+	div_in.style = "float:left;width:25%";
+	var food_p = document.createElement('p');
+	var price_p = document.createElement('p');
+	food_p.innerHTML = "Menu Item Name" + x;
+	price_p.innerHTML = "Menu Item Price" + x;
+	var food = document.createElement('input');
+	var price = document.createElement('input');
+	food.name = "FoodItem" + x;
+	price.name = "Price" + x;
+	food.value = "None";
+	price.value = "0";
+	input_div.appendChild(div_in);
+	div_in.appendChild(food_p);
+	div_in.appendChild(food);
+	div_in.appendChild(price_p);
+	div_in.appendChild(price);
+}
+
+var truck_element = document.createElement('input');
+truck_element.hidden = true;
+truck_element.name = "Truck_Name";
+truck_element.value = truck_name;
+form.appendChild(truck_element);
+
+</script>
+</div>
+
+
+</crowd-form>
