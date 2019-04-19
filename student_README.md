@@ -17,6 +17,6 @@ To complete the HIT, you will be displayed a picture of a food truck menu simply
 fill out as many fields as there are menu items visible. This will allow us to add the food truck's menu and pricing to our website.
 
 ### Using Truck Tracker
-All of the data we collect will be aggregated and displayed on [this website](158.130.178.72:8080). 
-You need to be connected to AirPennNet in order to view the website for now, but on that site should be another link to the form
+All of the data we collect will be aggregated and displayed by entering 158.130.178.72:8080 as the web address. 
+You need to be connected to AirPennNet in order to view the website for now. On that site should be another link to the form
 as well as a map with markers for all of the trucks we have data for so far as well as menu info and prices for those trucks.
