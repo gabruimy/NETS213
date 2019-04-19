@@ -11,12 +11,12 @@ as the form also collects your location when you submit the form in addition to 
 location seems way off from where the truck actually is, feel free to edit that field, but as long as it's close it should be ok.
 Once you've submitted the form, you are done! That's all we need for this task.
 
-###Transcribing menus
+### Transcribing menus
 For this task we have a [HIT on MTurk sandbox](https://workersandbox.mturk.com/projects/35DGDVUOHKTRNY85GOQXERTIABCYPJ/tasks?ref=w_pl_prvw).
 To complete the HIT, you will be displayed a picture of a food truck menu simply record every item on the menu as well as its price and 
 fill out as many fields as there are menu items visible. This will allow us to add the food truck's menu and pricing to our website.
 
-###Using Truck Tracker
+### Using Truck Tracker
 All of the data we collect will be aggregated and displayed on [this website](158.130.178.72:8080). 
 You need to be connected to AirPennNet in order to view the website for now, but on that site should be another link to the form
 as well as a map with markers for all of the trucks we have data for so far as well as menu info and prices for those trucks.
