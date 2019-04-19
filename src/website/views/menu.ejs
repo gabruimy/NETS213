@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+    var app = angular.module("myApp", []);
+
+    app.controller("myCtrl", function($scope) {
+    console.log('here')
+    $scope.food = <%-food%>;
+    $scope.price = <%-price%>;
+    });
+
+    function goMap(){
+      console.log("here");
+      window.location.replace('/');
+    }
+</script>
+  </head>
+  <body ng-app="myApp">
+
+<table ng-controller="myCtrl" border="1">
+  <th>Food</th>
+  <th>Price</th>
+    <tr ng-repeat="x in food">
+        <td>{{x}}</td>
+        <td>{{price[$index]}}</td>
+    </tr>
+</table>
+
+<button onClick='goMap()'>Main Page</button>
+
+  </body>
+</html>
