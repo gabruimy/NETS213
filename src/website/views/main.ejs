@@ -10,10 +10,11 @@
        }
     </style>
   </head>
-  <body>
-    <h3>Truck tracker</h3>
-    <!--The div element for the map -->
-    <div id="map"></div>
+  <body style="background-color: #E5DADA">
+      <h3 style="text-align:center;font:30px Ariel"><u>Truck Tracker</u></h3>
+      <!--The div element for the map -->
+      <div id="map"></div>
+      <button onClick='uploadData()' style="width:100%;font:16px Ariel">Upload Menu Pictures</button>
     <script>
 // Initialize and add the map
 function initMap() {
@@ -26,7 +27,7 @@ function initMap() {
   $.post('/locations', function(data,status){
     JSON.parse(data).Items.forEach(function(element){
       var myLatlng = new google.maps.LatLng(element.Lat.N,element.Lon.N);
-      var content_window = "<form action='/Menu' method='post'><input hidden name='name' value='" + element.Truck_Name.S + "'</input><b><p>" + element.Truck_Name.S + "</p></b><br>" + "<input type='submit' value='Menu'></button></form>";
+      var content_window = "<form action='/Menu' method='post'><input hidden name='name' value='" + element.Truck_Name.S + "'</input><b><p style='text-align:center'>" + element.Truck_Name.S + "</p></b><br>" + "<input type='submit' value='Menu'></button></form>";
       var marker = new google.maps.Marker({position:myLatlng,
         title:element.Truck_Name.S
         ,map:map,
@@ -49,7 +50,6 @@ function uploadData(){
 
     </script>
 
-    <button onClick='uploadData()'>Upload Menu Pictures</button>
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
     * The key parameter will contain your own API key (which is not needed for this tutorial)

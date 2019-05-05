@@ -1,19 +1,16 @@
-<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script><crowd-form answer-format="flatten-objects" id="overall"> <crowd-instructions link-text="View instructions" link-type="button"> <short-summary>
+<p>Given the image above record all of the menu items (one per menu item input) and the price for each menu item in USD</p>
+</short-summary> </crowd-instructions>
 
-<crowd-form answer-format="flatten-objects" id="overall">
-    <crowd-instructions link-text="View instructions" link-type="button">
-    <short-summary>
-      <p>Given the image above record all of the menu items (one per menu item input) and the price for each menu item in USD</p>
-    </short-summary>
-  </crowd-instructions>
 <div class="row" id="work_content"><script type="text/javascript">
 var image = '${img}';
 var truck_name = '${truck_name}'
 
 var form = document.getElementById("overall");
 
+
 var img_div = document.createElement('div');
-img_div.style  = "width:500px;height:500px;margin:0 auto";
+img_div.style  = "width:600px;height:600px;top:15%;left:5%;position:fixed";
 
 var img = document.createElement('img');
 img.src = image;
@@ -23,6 +20,7 @@ img_div.appendChild(img);
 form.appendChild(img_div);
 
 var input_div = document.createElement('div');
+input_div.style = "width:600;float:right";
 form.appendChild(input_div);
 
 var food_p = document.createElement('p');
@@ -56,8 +54,5 @@ truck_element.name = "Truck_Name";
 truck_element.value = truck_name;
 form.appendChild(truck_element);
 
-</script>
-</div>
-
-
+</script></div>
 </crowd-form>

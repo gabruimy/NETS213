@@ -18,18 +18,18 @@
     }
 </script>
   </head>
-  <body ng-app="myApp">
-
-<table ng-controller="myCtrl" border="1">
+  <body ng-app="myApp" style="background-color: #E5DADA">
+<h3 style="text-align: center;font-size: 30px"><u><%=name%></u></h3>
+<table ng-controller="myCtrl" border="1" align="center">
   <th>Food</th>
   <th>Price</th>
     <tr ng-repeat="x in food">
         <td>{{x}}</td>
-        <td>{{price[$index]}}</td>
+        <td>{{price[$index] | currency}}</td>
     </tr>
 </table>
 
-<button onClick='goMap()'>Main Page</button>
+<button onClick='goMap()' style="margin:auto;display:block">Main Page</button>
 
   </body>
 </html>

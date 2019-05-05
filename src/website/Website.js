@@ -51,6 +51,7 @@ app.post('/Menu',function(req,res){
   		ProjectionExpression: "Food,Price",
   		TableName:'Trucks'
 	};
+	var truck_name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1);
 	ddb.query(params,function(err,data){
 		if(err){
 			console.log(err);
@@ -61,7 +62,7 @@ app.post('/Menu',function(req,res){
 				food.push(element.Food.S);
 				price.push(element.Price.N);
 			});
-			res.render(__dirname + '/views/menu.ejs',{'food':JSON.stringify(food),'price':JSON.stringify(price)});
+			res.render(__dirname + '/views/menu.ejs',{'food':JSON.stringify(food),'price':JSON.stringify(price),'name':truck_name});
 		}
 	});
 });
@@ -72,5 +73,4 @@ app.post('/Menu',function(req,res){
 
 
 
-app.listen(8080,'158.130.178.72');
 app.listen(8080,'localhost');
