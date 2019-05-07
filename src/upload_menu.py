@@ -2,7 +2,7 @@ import boto3
 import pandas as pd
 from decimal import *
 
-session = boto3.Session(aws_access_key_id='AKIAI7ATQVT7ECH6FM2Q',     aws_secret_access_key='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', region_name='us-east-1')
+session = boto3.Session(aws_access_key_id='XXXX',     aws_secret_access_key='XXXXX', region_name='us-east-1')
 dynamodb = session.resource('dynamodb')
 table = dynamodb.Table('Trucks')
 number_records = table.item_count;
