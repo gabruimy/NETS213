@@ -223,13 +223,14 @@ def worker_aggregate_quality(aggregate, truck_data, correct):
 			aggregate_data[1] += 0
 			aggregate_data[2] += 1
 			aggregate_data[3] += 1
-	
+
+	return worker_quality,aggregate_data
+	"""
 	full_food_right = 0
 	full_price_right = 0
 	all_worker_id = list()
 	all_food_plt = list()
 	all_price_plt = list()
-	last_plt_names = ["worker food percent correct", "aggregate food percent correct", "worker price percent correct ", "aggregate price percent correct"]
 	for g,h in worker_quality.items():
 		food_right = h[0]/h[2]
 		price_right = h[1]/h[3]
@@ -238,7 +239,6 @@ def worker_aggregate_quality(aggregate, truck_data, correct):
 		all_worker_id.append(g)
 		all_food_plt.append(food_right)
 		all_price_plt.append(price_right)
-	all_worker_id.append("aggregate")
 	a_food_right = aggregate_data[0] / aggregate_data[2]
 	a_price_right = aggregate_data[1] / aggregate_data[3]
 	w_food_right = full_food_right / len(worker_quality) 
@@ -268,6 +268,154 @@ def worker_aggregate_quality(aggregate, truck_data, correct):
 	plt.bar(last_plt_names, full_compare_plt)
 	plt.tight_layout()
 	plt.show()
+	"""
+
+def worker_completeness(aggregate, truck_data, correct):
+	correct_full = list()
+	worker_corr = dict()
+	aggregate_data = [0,0,0,0]
+	for x in correct.index:
+		truck = correct.loc[x,"truck"].lower().replace("_"," ");
+		for y in range(1,31):
+			food = "FoodItem" + str(y)
+			correct_food = correct.loc[x,food].lower()
+			price = "Price" + str(y)
+			correct_price = "{0:.2f}".format(correct.loc[x,price])
+			if correct_food != "none":
+				correct_full.append((truck,correct_food,correct_price))
+	for a in truck_data.index:
+		truck = truck_data.loc[a,"Input.truck_name"].lower().replace("_"," ")
+		worker = truck_data.loc[a,"WorkerId"]
+		curr_work_list = list()
+		for b in range(1,31):
+			food = "Answer.FoodItem" + str(b)
+			data_food = truck_data.loc[a,food].lower()
+			data_food = data_food.replace("&", "and")
+			data_food = data_food.replace(".","")
+			data_food = data_food.replace(",","")
+			data_food = data_food.replace(" small","")
+			data_food = data_food.replace(" large","")
+			data_food = re.sub(" \(.*\)","",data_food)
+			price = "Answer.Price" + str(b)
+			data_price = str(truck_data.loc[a,price])
+			data_price = data_price.replace("$","")
+			data_price = data_price.split()
+			data_price = "{0:.2f}".format(float(data_price[0]))
+			if data_food != "none":
+				curr_work_list.append((truck,data_food,data_price))
+		truck_corr = [x for x in correct_full if x[0] == truck]
+		num_corr = len(truck_corr)
+		correct_num = 0
+		for c in truck_corr:
+			if c in curr_work_list:
+				correct_num += 1
+		correct_worker_truck = worker_corr.get(worker)
+		if correct_worker_truck != None:
+			correct_worker_truck[0] += correct_num
+			correct_worker_truck[1] += num_corr
+			worker_corr.update({worker:correct_worker_truck})
+		else:
+			into_dict = [correct_num,num_corr]
+			worker_corr.update({worker:into_dict})
+	aggregate_corr = 0
+	for l in correct_full:
+		if l in aggregate:
+			aggregate_corr += 1
+	comp_aggregate = aggregate_corr / len(correct_full)
+	return worker_corr, comp_aggregate
+
+def aggr_graphs(worker_qual, worker_comp, aggr_qual, aggr_comp):
+	worker_correct = [0,0,0,0]
+	worker_complete = [0,0]
+	for x,y in worker_qual.items():
+		worker_correct[0] += y[0]
+		worker_correct[1] += y[1]
+		worker_correct[2] += y[2]
+		worker_correct[3] += y[3]
+	for a,b in worker_comp.items():
+		worker_complete[0] += b[0]
+		worker_complete[1] += b[1]
+
+	worker_corr_food = worker_correct[0] / worker_correct[2]
+	worker_corr_price = worker_correct[1] / worker_correct[3]
+	worker_complete_out = worker_complete[0] / worker_complete[1]
+	aggr_corr_food = aggr_qual[0] / aggr_qual[2]
+	aggr_corr_price = aggr_qual[1] / aggr_qual[3]
+
+	g1_label = ["Worker", "Aggregate"]
+	g1_val = [worker_corr_food,aggr_corr_food]
+	g2_val = [worker_corr_price,aggr_corr_price]
+	g3_val = [worker_complete_out,aggr_comp]
+
+	plt.figure(2, figsize=(18, 8))
+
+	plt.rc('xtick',labelsize=8)
+	plt.rc('ytick',labelsize=8)
+	plt.subplot(311)
+	plt.ylabel("percent of food items correct")
+	plt.xlabel("average")
+	plt.title("Correct Food Items Percent Comparing Worker and Aggregate Output")
+	plt.bar(g1_label, g1_val)
+	plt.subplot(312)
+	plt.ylabel("percent of price items correct")
+	plt.xlabel("average")
+	plt.title("Correct Price Items Percent Comparing Worker and Aggregate Output")
+	plt.bar(g1_label, g2_val)
+	plt.subplot(313)
+	plt.ylabel("percent complete")
+	plt.xlabel("average")
+	plt.title("Completeness of Menu Comparing Worker and Aggregate Output")
+	plt.bar(g1_label, g3_val)
+	plt.tight_layout()
+	plt.show()
+
+
+
+def qual_graphs(worker_qual, worker_comp):
+	full_food_right = 0
+	full_price_right = 0
+	all_worker_id_qual = list()
+	all_worker_id_comp = list()
+	all_food_plt = list()
+	all_price_plt = list()
+	all_comp_plt = list()
+	for g,h in worker_qual.items():
+		food_right = h[0]/h[2]
+		price_right = h[1]/h[3]
+		full_food_right += food_right
+		full_price_right += price_right
+		all_worker_id_qual.append(g)
+		all_food_plt.append(food_right)
+		all_price_plt.append(price_right)
+	for k,j in worker_comp.items():
+		comp_work = j[0]/j[1]
+		all_worker_id_comp.append(k)
+		all_comp_plt.append(comp_work)
+
+	plt.figure(1, figsize=(18, 8))
+
+	plt.rc('xtick',labelsize=8)
+	plt.rc('ytick',labelsize=8)
+	plt.subplot(311)
+	plt.ylabel("percent of food items correct")
+	plt.xlabel("worker id")
+	plt.title("Correct Food Items Percent from Each Worker and Aggregate Output")
+	plt.bar(all_worker_id_qual, all_food_plt)
+	plt.subplot(312)
+	plt.ylabel("percent of price items correct")
+	plt.xlabel("worker id")
+	plt.title("Correct Price Items Percent from Each Worker and Aggregate Output")
+	plt.bar(all_worker_id_qual, all_price_plt)
+	plt.subplot(313)
+	plt.ylabel("percent complete")
+	plt.xlabel("worker id")
+	plt.title("Completeness of Menu Submitted by Each Worker")
+	plt.bar(all_worker_id_comp, all_comp_plt)
+	plt.tight_layout()
+	plt.show()
+
+
+
 
 def main():
 	if len(sys.argv) != 2:
@@ -289,7 +437,11 @@ def main():
 		truck_data = pd.read_csv("../data/Class_HITS.csv")
 		correct_data = pd.read_csv("../data/Test_Output_Correct.csv")
 		aggregate_out = aggregation(truck_data);
-		all_quality = worker_aggregate_quality(aggregate_out, truck_data, correct_data)
+		worker_comp, aggr_comp = worker_completeness(aggregate_out, truck_data, correct_data)
+		worker_qual, aggr_qual = worker_aggregate_quality(aggregate_out,truck_data,correct_data)
+		qual_graphs(worker_qual,worker_comp)
+		aggr_graphs(worker_qual,worker_comp,aggr_qual,aggr_comp)
+
 
 if __name__ == '__main__':
     main()
